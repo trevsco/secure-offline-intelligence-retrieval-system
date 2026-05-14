@@ -26,8 +26,8 @@ const Search = () => {
 
           <p className="text-gray-700 leading-relaxed">
             The uploaded radar communication report states that the
-            monitoring system operates within the X-band frequency range and
-            supports encrypted communication protocols.
+            monitoring system operates within the X-band frequency range
+            and supports encrypted communication protocols.
           </p>
 
           <p className="mt-4 text-sm text-gray-500">
