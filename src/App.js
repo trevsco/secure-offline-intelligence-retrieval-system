@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import Dashboard from "./pages/Dashboard";
 import Upload from "./pages/Upload";
+import Analysis from "./pages/Analysis";
 import Search from "./pages/Search";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           </h1>
 
           <nav className="space-y-2">
+
             <Link
               to="/"
               className="block px-4 py-3 rounded-md hover:bg-gray-100"
@@ -28,6 +30,13 @@ function App() {
               className="block px-4 py-3 rounded-md hover:bg-gray-100"
             >
               Upload Documents
+            </Link>
+
+            <Link
+              to="/analysis"
+              className="block px-4 py-3 rounded-md hover:bg-gray-100"
+            >
+              Document Analysis
             </Link>
 
             <Link
@@ -45,6 +54,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/upload" element={<Upload />} />
+            <Route path="/analysis" element={<Analysis />} />
             <Route path="/search" element={<Search />} />
           </Routes>
         </div>
