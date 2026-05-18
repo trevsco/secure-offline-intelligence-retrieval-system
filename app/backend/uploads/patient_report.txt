@@ -1,0 +1,45 @@
+PATIENT MEDICAL REPORT
+
+Patient ID: 10234
+Name: John Doe
+Age: 45
+Gender: Male
+Date of Admission: 2024-03-10
+
+1. Chief Complaint
+The patient presented with persistent chest pain, shortness of breath,
+and mild dizziness for the past 3 days. No prior history of cardiac events.
+
+2. Diagnosis
+After conducting an ECG, blood tests, and echocardiography, the patient
+was diagnosed with Unstable Angina. Troponin levels were mildly elevated
+at 0.06 ng/mL. LDL cholesterol was found to be 160 mg/dL, above the
+recommended threshold of 100 mg/dL.
+
+3. Treatment Plan
+The patient was prescribed the following medications:
+- Aspirin 75mg daily to prevent blood clotting
+- Atorvastatin 40mg daily to reduce cholesterol
+- Nitroglycerin 0.4mg as needed for chest pain relief
+- Metoprolol 25mg twice daily to control heart rate
+
+4. Allergies
+The patient has a known allergy to Penicillin and Sulfa drugs.
+Alternative antibiotics should be used if infection arises.
+
+5. Test Results
+- Blood Pressure: 145/90 mmHg (Hypertensive)
+- Heart Rate: 88 bpm
+- Oxygen Saturation: 97%
+- Blood Glucose: 110 mg/dL (Normal)
+- ECG: ST-segment depression noted in leads V4-V6
+
+6. Follow-up
+The patient is advised to return for a follow-up in 2 weeks.
+A stress test and repeat echocardiography are scheduled for 2024-03-24.
+A low-sodium, low-fat diet is strongly recommended.
+
+7. Attending Physician
+Dr. Sarah Mitchell
+Cardiology Department
+City General Hospital

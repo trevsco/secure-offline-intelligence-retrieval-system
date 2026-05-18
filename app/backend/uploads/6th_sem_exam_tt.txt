@@ -1,0 +1,22 @@
+CSEN1131 Software Engineering 28-04-2026 FN
+CSEN2071 Cryptography and Network Security 22-04-2026 FN
+CSEN3083 Deep Learning – Theory and Practice 24-04-2026 AN
+FINA1031 Principles and Practice of Banking 27-04-2026 AN
+SOCY3071 Gender and Sexuality 28-04-2026 AN
+CSEN3071 Web Application Development and Software Frameworks 24-04-2026 FN
+
+
+2023002425 CSEN3083 Deep Learning – Theory and Practice 24-04-2026 AN
+2023002425 FINA1031 Principles and Practice of Banking 27-04-2026 AN
+2023002425 SOCY3071 Gender and Sexuality 28-04-2026 AN
+CSEN2071 Cryptography and Network Security 22-04-2026 FN
+CSEN3091 Digital Forensics 24-04-2026 FN
+CSEN3041 Ethical Hacking 23-04-2026 FN
+
+
+2023002985 CSEN3083 Deep Learning – Theory and Practice 24-04-2026 AN
+2023002985 FINA1031 Principles and Practice of Banking 27-04-2026 AN
+2023002985 SOCY3071 Gender and Sexuality 28-04-2026 AN
+CSEN2071 Cryptography and Network Security 22-04-2026 FN
+CSEN3091 Digital Forensics 24-04-2026 FN
+CSEN3041 Ethical Hacking 23-04-2026 FN

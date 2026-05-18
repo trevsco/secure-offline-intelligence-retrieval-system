@@ -1,6 +1,3 @@
-"""
-Shared utilities: ChromaDB client, text chunking, Ollama inference.
-"""
 import os
 import chromadb
 import requests
@@ -22,37 +19,34 @@ def get_collection():
         metadata={"hnsw:space": "cosine"},
     )
 
-# ── Ollama / TinyLlama ───────────────────────────────────────────────────────
+# ── Ollama ───────────────────────────────────────────────────────────────────
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "tinyllama")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "phi3.5")
 OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
 
 def ollama_generate(prompt: str, system: str = "") -> str:
-    """Call Ollama /api/generate and return the full response text."""
     payload = {
         "model": OLLAMA_MODEL,
         "prompt": prompt,
         "stream": False,
+        "options": {
+            "temperature": 0.1,
+            "num_predict": 512,
+        }
     }
     if system:
         payload["system"] = system
-
-    resp = requests.post(f"{OLLAMA_URL}/api/generate", json=payload, timeout=120)
+    resp = requests.post(f"{OLLAMA_URL}/api/generate", json=payload, timeout=300)
     resp.raise_for_status()
     return resp.json().get("response", "").strip()
 
-
 def ollama_embed(text: str) -> list[float]:
-    """Return an embedding vector for the given text using Ollama."""
     payload = {"model": OLLAMA_EMBED_MODEL, "prompt": text}
-    resp = requests.post(f"{OLLAMA_URL}/api/embeddings", json=payload, timeout=60)
+    resp = requests.post(f"{OLLAMA_URL}/api/embeddings", json=payload, timeout=120)
     resp.raise_for_status()
     return resp.json()["embedding"]
 
-
-# ── Text chunking ────────────────────────────────────────────────────────────
 def chunk_text(text: str, chunk_size: int = 400, overlap: int = 60) -> list[str]:
-    """Split text into overlapping word-level chunks."""
     words = text.split()
     chunks = []
     start = 0

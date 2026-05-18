@@ -1,15 +1,12 @@
 """
 POST /api/search
-  Body: { "query": "...", "top_k": 5 }
-  - Embeds query via Ollama
-  - Runs cosine similarity search in ChromaDB
-  - Feeds top-k chunks + query to TinyLlama
-  - Returns answer + source references
 """
 from flask import Blueprint, request, jsonify
 from utils import get_collection, ollama_embed, ollama_generate
 
 search_bp = Blueprint("search", __name__)
+
+RELEVANCE_THRESHOLD = 0.40  # Minimum relevance to consider a chunk useful
 
 
 @search_bp.route("/search", methods=["POST"])
@@ -21,15 +18,12 @@ def search_documents():
     if not query:
         return jsonify({"error": "query is required."}), 400
 
-    # Embed the query
     query_embedding = ollama_embed(query)
 
-    # Retrieve top-k similar chunks from ChromaDB
     collection = get_collection()
-
     count = collection.count()
     if count == 0:
-        return jsonify({"error": "No documents indexed yet. Please upload a document first."}), 404
+        return jsonify({"error": "No documents indexed yet."}), 404
 
     actual_k = min(top_k, count)
     results = collection.query(
@@ -42,25 +36,38 @@ def search_documents():
     metas = results.get("metadatas", [[]])[0]
     distances = results.get("distances", [[]])[0]
 
-    if not docs:
+    # Filter by relevance threshold
+    relevant_docs = []
+    relevant_metas = []
+    relevant_scores = []
+
+    for doc, meta, dist in zip(docs, metas, distances):
+        score = 1 - dist
+        if score >= RELEVANCE_THRESHOLD:
+            relevant_docs.append(doc)
+            relevant_metas.append(meta)
+            relevant_scores.append(score)
+
+    # If nothing passes the threshold, return not found
+    if not relevant_docs:
         return jsonify({
-            "answer": "No relevant content found for your query.",
+            "query": query,
+            "answer": "The information requested is not found in the indexed documents.",
             "sources": [],
         }), 200
 
-    # Build context for RAG prompt
+    # Build context for RAG
     context_parts = []
     sources = []
-    for doc, meta, dist in zip(docs, metas, distances):
+    for doc, meta, score in zip(relevant_docs, relevant_metas, relevant_scores):
         fn = meta.get("filename", "unknown")
         chunk_idx = meta.get("chunk_index", 0)
-        # Approximate page number (every ~2 chunks ≈ 1 page)
         approx_page = (chunk_idx // 2) + 1
         context_parts.append(f"[Source: {fn}, Page ~{approx_page}]\n{doc}")
         sources.append({
             "filename": fn,
             "page": approx_page,
-            "relevance_score": round(1 - dist, 3),
+            "relevance_score": round(score, 3),
             "excerpt": doc[:200] + ("..." if len(doc) > 200 else ""),
         })
 
