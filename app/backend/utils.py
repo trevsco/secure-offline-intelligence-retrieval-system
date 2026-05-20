@@ -46,7 +46,7 @@ def ollama_embed(text: str) -> list[float]:
     resp.raise_for_status()
     return resp.json()["embedding"]
 
-def chunk_text(text: str, chunk_size: int = 400, overlap: int = 60) -> list[str]:
+def chunk_text(text: str, chunk_size: int = 400, overlap: int = 50) -> list[str]:
     words = text.split()
     chunks = []
     start = 0
