@@ -27,8 +27,8 @@ def analyze_document():
 
     full_text = "\n\n".join(chunks)
     words = full_text.split()
-    if len(words) > 1500:
-        full_text = " ".join(words[:1500])
+    if len(words) > 300:
+        full_text = " ".join(words[:300])
 
     # Summary
     summary = ollama_generate(

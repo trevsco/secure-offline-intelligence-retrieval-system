@@ -81,7 +81,7 @@ const Analysis = () => {
 
         {loading && (
           <div className="mb-6 p-4 bg-blue-50 border border-blue-200 text-blue-700 rounded-md">
-            TinyLlama is analyzing the document, this may take a minute...
+          Analyzing the document, this may take a minute...
           </div>
         )}
 
