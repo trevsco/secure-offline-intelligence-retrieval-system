@@ -25,7 +25,7 @@ def search_documents():
     if count == 0:
         return jsonify({"error": "No documents indexed yet."}), 404
 
-    actual_k = min(3, count)
+    actual_k = min(5, count)
     results = collection.query(
         query_embeddings=[query_embedding],
         n_results=actual_k,

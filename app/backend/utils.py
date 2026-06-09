@@ -47,11 +47,24 @@ def ollama_embed(text: str) -> list[float]:
     return resp.json()["embedding"]
 
 def chunk_text(text: str, chunk_size: int = 200, overlap: int = 30) -> list[str]:
-    words = text.split()
+    """Split by paragraphs first, then by words if too long."""
+    paragraphs = [p.strip() for p in text.split('\n') if p.strip()]
     chunks = []
-    start = 0
-    while start < len(words):
-        end = start + chunk_size
-        chunks.append(" ".join(words[start:end]))
-        start += chunk_size - overlap
+    current_chunk = []
+    current_size = 0
+
+    for para in paragraphs:
+        words = para.split()
+        if current_size + len(words) <= chunk_size:
+            current_chunk.extend(words)
+            current_size += len(words)
+        else:
+            if current_chunk:
+                chunks.append(" ".join(current_chunk))
+            current_chunk = words[-overlap:] + words
+            current_size = len(current_chunk)
+
+    if current_chunk:
+        chunks.append(" ".join(current_chunk))
+
     return [c for c in chunks if c.strip()]
